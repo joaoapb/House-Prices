@@ -84,7 +84,17 @@ df.groupby(['Condition1']).size()
 
 # nearby a railroad
 df['NearRailroad'] = 0
-df.loc[df['Condition1'].isin(['RRNn', 'RRAn', 'PosN', 'PosA', 'RRNe', 'RRAe']), 'NearRailroad'] = 0
+df.loc[
+    (df['Condition1'].isin(['RRNn', 'RRAn', 'PosN', 'PosA', 'RRNe', 'RRAe'])) |
+    (df['Condition2'].isin(['RRNn', 'RRAn', 'PosN', 'PosA', 'RRNe', 'RRAe'])), 'NearRailroad'] = 0
+
+
+# | Ages 
+df['Age'] = df['YrSold'] - df['YearBuild']
+df['RemodAge'] = df['YrSold'] - df['YearRemodAdd']
+
+
+
 
 # | STRATEGY DISCUSSION ----
 # Since many variables are categorical, it makes sense to transform these in dummies (one hot encoding)
